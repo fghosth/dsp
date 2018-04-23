@@ -90,11 +90,11 @@ func TestAsyncSend(t *testing.T) {
 	producer := kafka.NewProducer(server, config, success, errfun)
 	count := 3
 	for i := 0; i < count; i++ {
-		message := "======" + strconv.Itoa(i)
+		message := "===5435345===" + strconv.Itoa(i)
 		key := "dsp"
-		topic := "dsp"
+		topic := "testTime"
 		// t := time.Now()
-		t, _ := time.Parse("2006-01-02 15:04:05 -0700", "2018-04-22 21:30:00 +0400")
+		t, _ := time.Parse("2006-01-02 15:04:05 -0700", "2018-04-22 21:33:00 +0400")
 		producer.SendMsgAsync(message, key, topic, t)
 	}
 
