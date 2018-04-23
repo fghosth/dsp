@@ -1,0 +1,129 @@
+# ADX: "smaato"
+ADX: "exads"
+# ADX: "mgid"
+# ADX: "popcash"
+# ADX: "propellerads"
+# ADX: "adsterra"
+# ADX: "zeropark"
+# ADX: "popundertotal"
+# ADX: "hilltopads"
+#ADX: "clickadu"
+# ADX: "eroadv"
+#服务器名称，每台必须不一样.influxdb 临时数据的server tag
+Server: "dspSmaato3"
+#服务端口号
+Bind: ":9900"
+#最大连接数
+Maxconn: 100000
+#cdnUrl
+CDNURL: ""
+#mq地址
+# RabbitMQURL: "amqp://derek:zaqwedcxs@mqm.nb.com:5672/"
+RabbitMQURL: "amqp://derek:zaqwedcxs@mq.newbidder.com:5672/"
+#RabbitMQURL: "amqp://derek:zaqwedcxs@mq1.com:5672/"
+#访问服务的用户名密码
+RedisURL: "redis.nb.com:6380"
+RedisPWD: ""
+#最大连接数
+RedisDB: 0
+#日志等级 all debug info  error
+Loglevel: "all"
+#获取compaign连接地址
+CompaignURL: "http://54.178.104.115:5000/dsp-campaign/getMany"
+#索引本地缓存文件名
+CPIDXNAME: "compaign.idx"
+#redis indexkey
+RedisIndexKey: "DSP:compaignIndex"
+#redis compaignversion key
+RedisCPVersionKey: "DSP:CPIndexversion"
+#初始化索引时每次读取几条数据
+PerNum: 20
+#检查索引时间间隔 s
+Interval: 3
+#货币都要乘1000000
+Cashfix: 1000000
+#设备，用户，位置等map预留大小
+MapLength: 10000
+#sql 语句
+DSPSQL:
+  #根据id获取compaign
+  - GetComByID: "select * from BaseDspCampaign where trackingCampaignId="
+  #获取总的compaign数量
+  - GetTotalCom: "select count(trackingCampaignId) as total from BaseDspCampaign where trackingCampaignId in (12627,12628) and status=1"
+  # - GetTotalCom: "select count(trackingCampaignId)-1400 as total from BaseDspCampaign where userId = 14 and trackingCampaignId > 11050 and status=1"
+  #获取总的compaign数量 id in(2,46) and
+  - GetCompaign: "select * from BaseDspCampaign where trackingCampaignId in (12627,12628) and  status=1"
+  # - GetCompaign: "select * from BaseDspCampaign where userId = 14 and trackingCampaignId > 11050 and  status=1"
+#胜出通知链接
+NURL: "http://adx-smaato.newbidder.com/v1/ADXNotify"
+QPS: 1000000
+#ADXCode
+ADXCode:
+  - smaato: 1
+  - exads: 2
+  - mgid: 4
+  - popcash: 8
+  - propellerads: 16
+  - adsterra: 32
+  - zeropark: 64
+  - popundertotal: 128
+  - hilltopads: 256
+  - clickadu: 512
+  - eroadv: 1024
+#线程超时时间 单位s 0为永不超时
+Timeout: 0
+#多线程使用cpu数量
+Numcpu: 4
+#线程数
+NUMP: 1000
+#缓存大小100MB 100*1024*1024
+CacheSize: 104857600
+#广告缓存保留时间600秒
+CacheExpire: 600
+#插入influxdb的链接,立刻插入
+InfluxdbInsertNowURL: "http://influx.newbidder.com/influx/v2/insertNow"
+#插入influxdb的链接，插入有缓存延迟
+InfluxdbInsertURL: "http://influx.newbidder.com/influx/v2/insert"
+#插入influxdb的链接，插入有缓存延迟
+InfluxdbSelectURL: "http://influx.newbidder.com/influx/v2/select"
+#投放广告缓存库
+InfluxdbDatabase: "dsp"
+#投放广告缓存表 保存6小时数据
+InfluxdbTable: "bidcache"
+#成功后通知tracking的exname
+TrackingEXName: "dsp.tracking.notify"
+#成功后通知tracking的routekey
+TrackingRouteKey: "tracking"
+#成功后通知dsp的exname
+DSPEXName: "dsp.success.notify"
+#成功后通知dsp的routekey
+DSPRouteKey: "success"
+#compaign更新后通知index的exname
+IndexEXName: "dsp.index.notify"
+#compaign更新后通知index的routekey
+IndexRouteKey: "index"
+#rabbitmq extype 类型
+DSPextype: "fanout"
+#用户筛选最大时间 ms
+FilterTimeout: 80
+#adx请求日志路径
+ADXReqTrackPath: "adx.txt"
+#adx请求日志路径是否开启
+ADXReqTrackISON: true
+#竞价成功日志是否打开
+ADXReqTrackWin: true
+#竞价成功日志文件
+ADXReqTrackWinPath: "win.log"
+#dsp同步索引服务列表
+DSPSyncIndexServers:
+ - "http://localhost:9900/v1/SyncIndex"
+ # - "http://dsp2.com:9910/v1/SyncIndex"
+#要跟踪问题的compaignid
+DspTrackCIDs:
+  - 12628
+  # - 11081
+  # - 11082
+#是否打开跟踪问题的compaignid
+TrackCompaignISON: true
+#用于追踪存放要跟踪问题的compaignid的记录
+TrackingFile: "dsptracking.log"

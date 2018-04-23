@@ -1,0 +1,50 @@
+package: jvole.com/dsp
+import:
+- package: github.com/asaskevich/govalidator
+  version: ^8.0.0
+- package: github.com/go-kit/kit
+  version: ^0.6.0
+  subpackages:
+  - auth/basic
+  - endpoint
+  - log
+  - log/level
+  - metrics
+  - ratelimit
+  - transport/http
+- package: github.com/golang/time
+  subpackages:
+  - rate
+- package: github.com/gorilla/mux
+  version: ^1.6.1
+- package: github.com/influxdata/influxdb
+  version: ^1.4.3
+  subpackages:
+  - client/v2
+- package: github.com/RoaringBitmap/roaring
+  version: ^0.4.2
+- package: github.com/tidwall/buntdb
+  version: ^1.0.0
+- package: github.com/sadlil/go-trigger
+  version: ^0.1.0
+- package: github.com/streadway/amqp
+- package: github.com/jinzhu/now
+- package: github.com/emirpasic/gods
+  version: ^1.9.0
+- package: github.com/buger/jsonparser
+- package: github.com/tidwall/btree
+- package: github.com/go-redis/redis
+  version: ^6.10.0
+- package: github.com/spf13/viper
+  version: ^1.0.0
+- package: github.com/coocood/freecache
+  version: ^1.0.1
+- package: github.com/valyala/fasttemplate
+- package: github.com/cespare/xxhash
+  version: ^1.0.0
+- package: github.com/Shopify/sarama
+  version: ^1.16.0
+- package: github.com/davecgh/go-spew
+  version: ^1.1.0
+  subpackages:
+  - spew

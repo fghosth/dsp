@@ -1,0 +1,258 @@
+hash: 0d2ff7140d4f27316e6f81044119c177db1b0492dad17a4af5be4a650cc50bcb
+updated: 2018-04-18T20:55:35.201435+08:00
+imports:
+- name: github.com/asaskevich/govalidator
+  version: 521b25f4b05fd26bec69d9dedeb8f9c9a83939a8
+- name: github.com/beorn7/perks
+  version: 3a771d992973f24aa725d07868b467d1ddfceafb
+  subpackages:
+  - quantile
+- name: github.com/buger/jsonparser
+  version: 2cac668e8456b4284edb0715e17e2af02d3ec993
+- name: github.com/cespare/xxhash
+  version: 5c37fe3735342a2e0d01c87a907579987c8936cc
+- name: github.com/coocood/freecache
+  version: f3233c8095b26cd0dea0b136b931708c05defa08
+- name: github.com/davecgh/go-spew
+  version: 346938d642f2ec3594ed81d874461961cd0faa76
+  subpackages:
+  - spew
+- name: github.com/emirpasic/gods
+  version: f6c17b524822278a87e3b3bd809fec33b51f5b46
+- name: github.com/fsnotify/fsnotify
+  version: c2828203cd70a50dcccfb2761f8b1f8ceef9a8e9
+- name: github.com/glycerine/go-unsnap-stream
+  version: 62a9a9eb44fd8932157b1a8ace2149eff5971af6
+- name: github.com/go-kit/kit
+  version: ca4112baa34cb55091301bdc13b1420a122b1b9e
+  subpackages:
+  - auth/basic
+  - endpoint
+  - log
+  - log/level
+  - metrics
+  - metrics/internal/lv
+  - metrics/prometheus
+  - ratelimit
+  - transport/http
+- name: github.com/go-logfmt/logfmt
+  version: 390ab7935ee28ec6b286364bba9b4dd6410cb3d5
+- name: github.com/go-redis/redis
+  version: 877867d2845fbaf86798befe410b6ceb6f5c29a3
+  subpackages:
+  - internal
+  - internal/consistenthash
+  - internal/hashtag
+  - internal/pool
+  - internal/proto
+  - internal/singleflight
+  - internal/util
+- name: github.com/go-stack/stack
+  version: 259ab82a6cad3992b4e21ff5cac294ccb06474bc
+- name: github.com/golang/protobuf
+  version: 925541529c1fa6821df4e44ce2723319eb2be768
+  subpackages:
+  - proto
+- name: github.com/golang/snappy
+  version: d9eb7a3d35ec988b8585d4a0068e462c27d28380
+- name: github.com/golang/time
+  version: fbb02b2291d28baffd63558aa44b4b56f178d650
+  subpackages:
+  - rate
+- name: github.com/gorilla/context
+  version: 08b5f424b9271eedf6f9f0ce86cb9396ed337a42
+- name: github.com/gorilla/mux
+  version: 53c1911da2b537f792e7cafcb446b05ffe33b996
+- name: github.com/hashicorp/hcl
+  version: ef8a98b0bbce4a65b5aa4c368430a80ddc533168
+  subpackages:
+  - hcl/ast
+  - hcl/parser
+  - hcl/printer
+  - hcl/scanner
+  - hcl/strconv
+  - hcl/token
+  - json/parser
+  - json/scanner
+  - json/token
+- name: github.com/influxdata/influxdb
+  version: 02d7d4f043b34ecb4e9b2dbec298c6f9450c2a32
+  subpackages:
+  - client/v2
+  - models
+  - pkg/escape
+- name: github.com/jinzhu/now
+  version: b7dfa9a2450405d4ee01eb238dcb873b3dc5336c
+- name: github.com/k0kubun/pp
+  version: e057ee7a28277be4d2af303443b6da377768181f
+- name: github.com/kr/logfmt
+  version: b84e30acd515aadc4b783ad4ff83aff3299bdfe0
+- name: github.com/magiconair/properties
+  version: 2c9e9502788518c97fe44e8955cd069417ee89df
+- name: github.com/mattn/go-colorable
+  version: efa589957cd060542a26d2dd7832fd6a6c6c3ade
+- name: github.com/mattn/go-isatty
+  version: 6ca4dbf54d38eea1a992b3c722a76a5d1c4cb25c
+- name: github.com/matttproud/golang_protobuf_extensions
+  version: c12348ce28de40eed0136aa2b644d0ee0650e56c
+  subpackages:
+  - pbutil
+- name: github.com/mitchellh/mapstructure
+  version: 00c29f56e2386353d58c599509e8dc3801b0d716
+- name: github.com/mschoch/smat
+  version: 90eadee771aeab36e8bf796039b8c261bebebe4f
+- name: github.com/pelletier/go-toml
+  version: 66540cf1fcd2c3aee6f6787dfa32a6ae9a870f12
+- name: github.com/philhofer/fwd
+  version: 1612a298117663d7bc9a760ae20d383413859798
+- name: github.com/prometheus/client_golang
+  version: 82f5ff156b29e276022b1a958f7d385870fb9814
+  subpackages:
+  - prometheus
+  - prometheus/promhttp
+- name: github.com/prometheus/client_model
+  version: 99fa1f4be8e564e8a6b613da7fa6f46c9edafc6c
+  subpackages:
+  - go
+- name: github.com/prometheus/common
+  version: 2e54d0b93cba2fd133edc32211dcc32c06ef72ca
+  subpackages:
+  - expfmt
+  - internal/bitbucket.org/ww/goautoneg
+  - model
+- name: github.com/prometheus/procfs
+  version: a6e9df898b1336106c743392c48ee0b71f5c4efa
+  subpackages:
+  - xfs
+- name: github.com/RoaringBitmap/roaring
+  version: be602e3d1085b6aa8e24907cfbec8d0d3034f2dd
+- name: github.com/sadlil/go-trigger
+  version: fc119c7baf496759b86968ffd528a0a0d2338227
+- name: github.com/satori/go.uuid
+  version: 36e9d2ebbde5e3f13ab2e25625fd453271d6522e
+- name: github.com/Shopify/sarama
+  version: f7be6aa2bc7b2e38edf816b08b582782194a1c02
+- name: github.com/spf13/afero
+  version: 63644898a8da0bc22138abf860edaf5277b6102e
+  subpackages:
+  - mem
+- name: github.com/spf13/cast
+  version: 8965335b8c7107321228e3e3702cab9832751bac
+- name: github.com/spf13/jwalterweatherman
+  version: 7c0cea34c8ece3fbeb2b27ab9b59511d360fb394
+- name: github.com/spf13/pflag
+  version: 583c0c0531f06d5278b7d917446061adc344b5cd
+- name: github.com/spf13/viper
+  version: b5e8006cbee93ec955a89ab31e0e3ce3204f3736
+- name: github.com/streadway/amqp
+  version: 8e4aba63da9fc5571e01c6a45dc809a58cbc5a68
+- name: github.com/tidwall/btree
+  version: 9876f1454cf0993a53d74c27196993e345f50dd1
+- name: github.com/tidwall/buntdb
+  version: 2da7c106683f522198cdf55ed8db42b374de50d7
+- name: github.com/tinylib/msgp
+  version: ad0ff2e232ad2e37faf67087fb24bf8d04a8ce20
+  subpackages:
+  - msgp
+- name: github.com/valyala/bytebufferpool
+  version: e746df99fe4a3986f4d4f79e13c1e0117ce9c2f7
+- name: github.com/valyala/fasttemplate
+  version: dcecefd839c4193db0d35b88ec65b4c12d360ab0
+- name: github.com/willf/bitset
+  version: 1a37ad96e8c1a11b20900a232874843b5174221f
+- name: golang.org/x/net
+  version: 9dfe39835686865bff950a07b394c12a98ddc811
+  subpackages:
+  - bpf
+  - html
+  - html/atom
+  - html/charset
+  - icmp
+  - internal/iana
+  - internal/socket
+  - ipv4
+  - ipv6
+  - netutil
+- name: golang.org/x/sys
+  version: 062cd7e4e68206d8bab9b18396626e855c992658
+  subpackages:
+  - unix
+- name: golang.org/x/text
+  version: a71fd10341b064c10f4a81ceac72bcf70f26ea34
+  subpackages:
+  - encoding
+  - encoding/charmap
+  - encoding/htmlindex
+  - encoding/internal
+  - encoding/internal/identifier
+  - encoding/japanese
+  - encoding/korean
+  - encoding/simplifiedchinese
+  - encoding/traditionalchinese
+  - encoding/unicode
+  - internal/tag
+  - internal/utf8internal
+  - language
+  - runes
+  - transform
+  - unicode/norm
+- name: gopkg.in/yaml.v2
+  version: 5420a8b6744d3b0345ab293f6fcba19c978f1183
+testImports:
+- name: github.com/eapache/go-resiliency
+  version: ea41b0fad31007accc7f806884dcdf3da98b79ce
+  subpackages:
+  - breaker
+- name: github.com/eapache/go-xerial-snappy
+  version: bb955e01b9346ac19dc29eb16586c90ded99a98c
+- name: github.com/eapache/queue
+  version: 093482f3f8ce946c05bcba64badd2c82369e084d
+- name: github.com/mxmCherry/openrtb
+  version: cad7d7ddd13a01d1476829ad7490bba1483c3792
+  subpackages:
+  - native
+  - native/request
+  - native/response
+- name: github.com/onsi/ginkgo
+  version: 6d8be987c536ebd84576a5a46208e7b7a3c796b0
+  subpackages:
+  - config
+  - extensions/table
+  - internal/codelocation
+  - internal/containernode
+  - internal/failer
+  - internal/leafnodes
+  - internal/remote
+  - internal/spec
+  - internal/spec_iterator
+  - internal/specrunner
+  - internal/suite
+  - internal/testingtproxy
+  - internal/writer
+  - reporters
+  - reporters/stenographer
+  - reporters/stenographer/support/go-colorable
+  - reporters/stenographer/support/go-isatty
+  - types
+- name: github.com/onsi/gomega
+  version: b7d1a52235cc433a76c556aa3f4229e63b95e7da
+  subpackages:
+  - format
+  - internal/assertion
+  - internal/asyncassertion
+  - internal/oraclematcher
+  - internal/testingtsupport
+  - matchers
+  - matchers/support/goraph/bipartitegraph
+  - matchers/support/goraph/edge
+  - matchers/support/goraph/node
+  - matchers/support/goraph/util
+  - types
+- name: github.com/pierrec/lz4
+  version: ed8d4cc3b461464e69798080a0092bd028910298
+- name: github.com/pierrec/xxHash
+  version: a0006b13c722f7f12368c00a3d3c2ae8a999a0c6
+  subpackages:
+  - xxHash32
+- name: github.com/rcrowley/go-metrics
+  version: d932a24a8ccb8fcadc993e5c6c58f93dac168294
