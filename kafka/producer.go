@@ -7,6 +7,8 @@ import (
 	"github.com/Shopify/sarama"
 )
 
+var KafKaProducer *producer
+
 type producer struct {
 	/*
 		c.Net.MaxOpenRequests = 5

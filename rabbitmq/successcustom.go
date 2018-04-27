@@ -57,13 +57,13 @@ func (ic successReceiver) OnReceive(body []byte) (success bool) {
 			fmt.Println(err) // 这里的err其实就是panic传入的内容，55
 		}
 	}()
-	fmt.Println(ic.queueName + "====" + string(body))
+
 	msg := &WinNotify{}
 	err := json.Unmarshal(body, &msg)
 	if err != nil { //解析消息错误丢弃消息
 		pc, file, line, _ := runtime.Caller(1)
 		f := runtime.FuncForPC(pc)
-		level.Error(*logger).Log(
+		level.Debug(*logger).Log(
 			"method", f.Name(),
 			"file", path.Base(file),
 			"line", line,
@@ -77,10 +77,23 @@ func (ic successReceiver) OnReceive(body []byte) (success bool) {
 		// pp.Println("时间过期或不是此adx的compaign", msg.ADX, config.ADX)
 		return true
 	}
+	if (config.ADXCode[config.ADX] & msg.ADX) == 0 { //不属于此adx
+		pc, file, line, _ := runtime.Caller(1)
+		f := runtime.FuncForPC(pc)
+		level.Debug(*logger).Log(
+			"method", f.Name(),
+			"file", path.Base(file),
+			"line", line,
+			"compaignid", msg.CID,
+			"msgbody", string(body),
+			"msg", "次compaign不属于"+config.ADX,
+		)
+		return true
+	}
 	if msg.ID == "" { //消息无效丢弃消息
 		pc, file, line, _ := runtime.Caller(1)
 		f := runtime.FuncForPC(pc)
-		level.Error(*logger).Log(
+		level.Debug(*logger).Log(
 			"method", f.Name(),
 			"file", path.Base(file),
 			"line", line,
@@ -94,7 +107,7 @@ func (ic successReceiver) OnReceive(body []byte) (success bool) {
 	if cp.ID == 0 { //当缓存没有时 丢弃消息
 		pc, file, line, _ := runtime.Caller(1)
 		f := runtime.FuncForPC(pc)
-		level.Error(*logger).Log(
+		level.Debug(*logger).Log(
 			"method", f.Name(),
 			"file", path.Base(file),
 			"line", line,
@@ -104,7 +117,7 @@ func (ic successReceiver) OnReceive(body []byte) (success bool) {
 		)
 		return true
 	}
-
+	// pp.Println(string(body))
 	//更新索引
 	err = index.CPINDEX.BidSuccess(msg.CID, msg.Price, msg.Postion, msg.User, msg.Device)
 	if err != nil {

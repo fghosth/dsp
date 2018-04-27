@@ -74,6 +74,9 @@ func (adultf *AdultFilter) Filter(compaign model.Compaign, offer model.Offer) bo
 	if !config.AdultBitmap.Contains(offerinfo.Domain) && compaign.IsAdult == 2 {
 		return true
 	}
+	if compaign.IsAdult == 3 {
+		return true
+	}
 	return false
 }
 
@@ -137,11 +140,16 @@ func (ssf *SpendStrategyFilter) Filter(compaign model.Compaign, offer model.Offe
 	if compaign.SpendStrategy == 1 { //快速投放
 		return true
 	}
+
 	var perh float32 //每小时费用
-	perh = float32(compaign.DailyBudget) / 24
+	perh = float32(compaign.DailyBudget) / 24 / 60
+
 	//当前第几个小时
-	hour := compaign.DailyBudgetRecores.SinceTime.Hour() + 1
-	if float32(compaign.DailyBudgetRecores.Cost) >= perh*float32(hour) {
+	dt, _ := util.CovnNOWUTC2Location(compaign.TimeZone.ZoneName)
+	minute := dt.Hour()*60 + dt.Minute()
+
+	// pp.Println(dt, dt.Hour(), dt.Minute(), int(compaign.DailyBudgetRecores.Cost), perh*float32(minute))
+	if float32(compaign.DailyBudgetRecores.Cost) >= perh*float32(minute) {
 		return false
 	}
 	return true

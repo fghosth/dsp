@@ -75,18 +75,17 @@ func (ic indexReceiver) OnReceive(body []byte) (success bool) {
 		index.CPINDEX.Remove(msg.CID)
 		return true
 	}
-
-	cp := index.CPINDEX.GetCompaign(msg.CID)
-	if cp.ID == 0 { //当缓存没有时 丢弃消息
+	if (config.ADXCode[config.ADX] & msg.ADX) == 0 { //不属于此adx
+		index.CPINDEX.Remove(msg.CID) //删除此adx
 		pc, file, line, _ := runtime.Caller(1)
 		f := runtime.FuncForPC(pc)
-		level.Error(*logger).Log(
+		level.Debug(*logger).Log(
 			"method", f.Name(),
 			"file", path.Base(file),
 			"line", line,
 			"compaignid", msg.CID,
 			"msgbody", string(body),
-			"msg", "索引中没有此compaign",
+			"msg", "次compaign不属于"+config.ADX,
 		)
 		return true
 	}
@@ -109,6 +108,8 @@ func (ic indexReceiver) OnReceive(body []byte) (success bool) {
 		index.CPINDEX.SetVersion(index.CPINDEX.GetVersion() + 1)
 	case config.MQNPENDING:
 		index.CPINDEX.SetCompaignStatus(msg.CID, config.CompaignStatus[config.CS_PENDING])
+	case config.MQNRUNNINT:
+		index.CPINDEX.SetCompaignStatus(msg.CID, config.CompaignStatus[config.CS_RUNNING])
 	}
 	// fmt.Println(index.CPINDEX.GetCompaign(msg.CID).DailyBudget, index.CPINDEX.GetCompaign(msg.CID).DailyBudgetRecores.Cost)
 	success = true

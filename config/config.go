@@ -14,6 +14,7 @@ var (
 	RedisPWD                    = ""
 	RedisDB                     = 0
 	CompaignURL                 = "http://54.178.104.115:5000/dsp-campaign/getMany"
+	KafkaURL                    = "kafka.newbidder.com:9092"
 	CPIDXNAME                   = "compaign.idx"                                    //索引本地缓存文件名
 	RedisIndexKey               = "DSP:compaignIndex"                               //redis indexkey
 	RedisCPVersionKey           = "DSP:CPIndexversion"                              //redis compaignversion key
@@ -38,7 +39,7 @@ var (
 	TrackingRouteKey            = "tracking"                                        //成功后通知tracking的routekey
 	DSPEXName                   = "dsp.success.notify"                              //成功后通知dsp的exname
 	DSPRouteKey                 = "success"                                         //成功后通知dsp的routekey
-	Server                      = "dspSmaato1"                                      //服务器名称，每台必须不一样
+	Server                      = "Developer"                                       //服务器名称，每台必须不一样
 	IndexEXName                 = "dsp.index.notify"                                //compaign更新后通知index的exname
 	IndexRouteKey               = "index"                                           //compaign更新后通知index的routekey
 	DSPextype                   = "fanout"                                          //rabbitmq extype 类型
@@ -51,14 +52,19 @@ var (
 	ADXReqTrackISON             = false                                             //adx请求日志路径是否开启
 	ADXReqTrackWin              = false                                             //竞价成功日志是否打开
 	ADXReqTrackWinPath          = "win.log"                                         //竞价成功日志文件
+	GRPCPEM                     = "./grpc/keys/server.pem"                          //grpc私钥
+	GRPCKEY                     = "./grpc/keys/server.key"                          //grpc公钥
 	DSPSyncIndexServers         = []string{
 		"http://localhost:9900/v1/SyncIndex",
 		"http://localhost:9900/v1/SyncIndex",
 	}
 
+	BidPriceFix                = 1000              //bidprice需要除1000
 	DspTrackCIDs      []uint32                     //要跟踪问题的compaignid
 	TrackCompaignISON bool     = true              //是否打开跟踪问题的compaignid
 	TrackingFile               = "dsptracking.log" //用于追踪存放要跟踪问题的compaignid的记录
+	KafKa_Topic_Bid            = "bid"             //bid topic name
+	KafKa_Topic_Win            = "win"             //win topic name
 	//impressionURL后添加的参数
 	IMPURL_ImageURLName = "imgurl"
 	IMPURL_SiteORAPPID  = "WebsiteID"
@@ -90,7 +96,8 @@ var (
 var AdultList = []string{
 	"adx-adsterra-add.newbidder.com",
 	"adx-exads-adult.newbidder.com",
-	"localhost3:9900",
+	"adx-popcash-adult.newbidder.com",
+	"localhost:9900",
 }
 var AdultBitmap = roaring.NewBitmap()
 
@@ -192,7 +199,8 @@ const (
 	MQNADD     = "add"     //compaign改变时的action add
 	MQNMODIFY  = "modify"  //compaign改变时的action modify
 	MQNDEL     = "del"     //compaign改变时的action del
-	MQNPENDING = "pending" //compaign改变时的action del
+	MQNPENDING = "pause"   //compaign改变时的action pause
+	MQNRUNNINT = "running" //compaign改变时的action running
 )
 const (
 	TEMPLATE_LEFT_TAG  = "{{"

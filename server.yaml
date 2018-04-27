@@ -1,9 +1,9 @@
 # ADX: "smaato"
-ADX: "exads"
+# ADX: "exads"
 # ADX: "mgid"
 # ADX: "popcash"
 # ADX: "propellerads"
-# ADX: "adsterra"
+ADX: "adsterra"
 # ADX: "zeropark"
 # ADX: "popundertotal"
 # ADX: "hilltopads"
@@ -18,8 +18,8 @@ Maxconn: 100000
 #cdnUrl
 CDNURL: ""
 #mq地址
-# RabbitMQURL: "amqp://derek:zaqwedcxs@mqm.nb.com:5672/"
-RabbitMQURL: "amqp://derek:zaqwedcxs@mq.newbidder.com:5672/"
+RabbitMQURL: "amqp://derek:zaqwedcxs@mqm.nb.com:5672/"
+# RabbitMQURL: "amqp://derek:zaqwedcxs@mq.newbidder.com:5672/"
 #RabbitMQURL: "amqp://derek:zaqwedcxs@mq1.com:5672/"
 #访问服务的用户名密码
 RedisURL: "redis.nb.com:6380"
@@ -29,7 +29,7 @@ RedisDB: 0
 #日志等级 all debug info  error
 Loglevel: "all"
 #获取compaign连接地址
-CompaignURL: "http://54.178.104.115:5000/dsp-campaign/getMany"
+CompaignURL: "http://13.230.175.109:5000/dsp-campaign/getMany"
 #索引本地缓存文件名
 CPIDXNAME: "compaign.idx"
 #redis indexkey
@@ -49,11 +49,11 @@ DSPSQL:
   #根据id获取compaign
   - GetComByID: "select * from BaseDspCampaign where trackingCampaignId="
   #获取总的compaign数量
-  - GetTotalCom: "select count(trackingCampaignId) as total from BaseDspCampaign where trackingCampaignId in (12627,12628) and status=1"
-  # - GetTotalCom: "select count(trackingCampaignId)-1400 as total from BaseDspCampaign where userId = 14 and trackingCampaignId > 11050 and status=1"
+  #- GetTotalCom: "select count(trackingCampaignId) as total from BaseDspCampaign where trackingCampaignId in (12627) and status=1"
+  - GetTotalCom: "select count(trackingCampaignId) as total from BaseDspCampaign where userId = 14 and trackingCampaignId > 12620 and status=1"
   #获取总的compaign数量 id in(2,46) and
-  - GetCompaign: "select * from BaseDspCampaign where trackingCampaignId in (12627,12628) and  status=1"
-  # - GetCompaign: "select * from BaseDspCampaign where userId = 14 and trackingCampaignId > 11050 and  status=1"
+  #- GetCompaign: "select * from BaseDspCampaign where trackingCampaignId in (12627) and  status=1"
+  - GetCompaign: "select * from BaseDspCampaign where userId = 14 and trackingCampaignId > 12620 and  status=1"
 #胜出通知链接
 NURL: "http://adx-smaato.newbidder.com/v1/ADXNotify"
 QPS: 1000000
@@ -120,10 +120,13 @@ DSPSyncIndexServers:
  # - "http://dsp2.com:9910/v1/SyncIndex"
 #要跟踪问题的compaignid
 DspTrackCIDs:
-  - 12628
-  # - 11081
-  # - 11082
+  - 12627
+  - 12654
+  - 11653
 #是否打开跟踪问题的compaignid
 TrackCompaignISON: true
 #用于追踪存放要跟踪问题的compaignid的记录
 TrackingFile: "dsptracking.log"
+KafkaURL: "kafka.newbidder.com:9092"
+GRPCPEM: "./grpc/keys/server.pem"
+GRPCKEY: "./grpc/keys/server.key"

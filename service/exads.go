@@ -15,6 +15,7 @@ import (
 	"jvole.com/dsp/config"
 	"jvole.com/dsp/filter"
 	"jvole.com/dsp/index"
+	"jvole.com/dsp/kafka"
 	"jvole.com/dsp/model"
 	"jvole.com/dsp/pool"
 	"jvole.com/dsp/rabbitmq"
@@ -98,7 +99,14 @@ func (s exadsDSPBidder) Bidder(body []byte, host string) string {
 
 	//生成返回结果
 	result := offer.GetBidderResponse(cp)
-
+	//发送bid记录到kafka
+	var stype string
+	if config.AdultBitmap.Contains(offer.GetOfferInfo().Domain) {
+		stype = "adult"
+	} else {
+		stype = "mainstream"
+	}
+	kafka.KafKaProducer.SendMsgAsync(result, config.ADX+","+stype, config.KafKa_Topic_Bid, time.Now().UTC())
 	return result
 }
 
@@ -113,6 +121,8 @@ func (s exadsDSPBidder) ADXNotify(notify rabbitmq.WinNotify) error {
 	rabbitmq.RabbitMQConn.Publish(config.TrackingEXName, config.TrackingRouteKey, body)
 	//通知dsp
 	rabbitmq.RabbitMQConn.Publish(config.DSPEXName, config.DSPRouteKey, body)
+	//发送win记录到kafka
+	kafka.KafKaProducer.SendMsgAsync(string(body), config.ADX, config.KafKa_Topic_Win, time.Now().UTC())
 	return nil
 }
 

@@ -177,9 +177,12 @@ func (cs *consumer) listen(receiver Receiver) {
 						if !cs.timeFilter(timeFilter, msg.Timestamp) && len(timeFilter) > 0 { //如果设置了timefilter，并且过滤失败不返回此消息
 							continue
 						}
-						receiver.OnReceive(msg)
+						res := receiver.OnReceive(msg)
+						if res {
+							c.MarkOffset(msg, "") // mark message as processed
+						}
 						// fmt.Fprintf(os.Stdout, "%s/%d/%d\t%s\t%s\n", msg.Topic, msg.Partition, msg.Offset, msg.Key, msg.Value)
-						c.MarkOffset(msg, "") // mark message as processed
+
 					}
 				}(part)
 			}

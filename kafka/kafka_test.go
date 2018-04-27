@@ -72,7 +72,7 @@ func aTestSyncSend(t *testing.T) {
 	producer.Close() //关闭发送器
 }
 
-func TestAsyncSend(t *testing.T) {
+func aTestAsyncSend(t *testing.T) {
 	//设置配置
 	config := sarama.NewConfig()
 

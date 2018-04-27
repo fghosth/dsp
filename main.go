@@ -19,7 +19,9 @@ import (
 	"github.com/spf13/viper"
 	"golang.org/x/net/netutil"
 	"jvole.com/dsp/config"
+	"jvole.com/dsp/grpc"
 	"jvole.com/dsp/index"
+	"jvole.com/dsp/kafka"
 	"jvole.com/dsp/rabbitmq"
 	"jvole.com/dsp/service"
 	"jvole.com/dsp/util"
@@ -74,6 +76,9 @@ type configmap struct {
 	DspTrackCIDs         []uint32 //要跟踪问题的compaignid
 	TrackCompaignISON    bool     //是否打开跟踪问题的compaignid
 	TrackingFile         string   //用于追踪存放要跟踪问题的compaignid的记录
+	KafkaURL             string   //kafka连接
+	GRPCPEM              string
+	GRPCKEY              string
 }
 
 var (
@@ -109,20 +114,25 @@ func main() {
 	// }
 	//初始化标识
 	config.IsInit = false
-	//初始化index
+	//=================================初始化index
 	log.Println("初始化索引...")
 	index.CPINDEX.SetupIndex()
 	// index.CPINDEX.SaveRedis()
 	index.CPINDEX.IndexCheck() //定时任务检查，根据index
 	// index.CPINDEX.SaveDisk()
 	// pp.Println("comp", len(index.CPINDEX.Compaign), index.CPINDEX.Bitmap.TypeBanner.GetCardinality())
-	//初始化rabbitmq
-
+	//==================================初始化kafka producer
+	log.Println("初始化Kafka Producer...")
+	kafka.KafKaProducer = kafka.NewDspMsg()
+	//==================================初始化rabbitMQ
 	log.Println("初始化rabbitMQ...")
 	conf := &rabbitmq.Mqserver{
 		Url:    config.RabbitMQURL,
 		Online: true,
 	}
+	//=================================grpc服务
+	log.Println("初始化GRPC...")
+	go grpc.Run()
 	//index message
 	MQIndexConn := rabbitmq.NewRabbitMQ(config.IndexEXName, config.DSPextype, *conf)
 	indexreceiver := rabbitmq.NewIndexReceiver("index_"+config.Server, config.IndexRouteKey)
@@ -256,6 +266,10 @@ func loadConfig(file string) {
 		config.ADXReqTrackWinPath = cfg.ADXReqTrackWinPath
 		config.DSPSyncIndexServers = cfg.DSPSyncIndexServers
 		config.DspTrackCIDs = cfg.DspTrackCIDs
+		config.TrackingFile = cfg.TrackingFile
+		config.KafkaURL = cfg.KafkaURL
+		config.GRPCKEY = cfg.GRPCKEY
+		config.GRPCPEM = cfg.GRPCPEM
 	} else {
 		log.Println("配置文件错误:", err)
 		os.Exit(0)

@@ -7,6 +7,7 @@ import (
 	"github.com/go-kit/kit/endpoint"
 	"jvole.com/dsp/config"
 	"jvole.com/dsp/dsperror"
+	"jvole.com/dsp/index"
 	"jvole.com/dsp/rabbitmq"
 	"jvole.com/dsp/util"
 )
@@ -42,6 +43,7 @@ func makeStopBidByCIDEndpoint(s DSPBidder) endpoint.Endpoint {
 		req := request.(StopBidByCIDRequest)
 
 		res := s.StopBidByCID(req.cid)
+
 		// var err error
 		var errcode int
 		var msg string
@@ -50,7 +52,9 @@ func makeStopBidByCIDEndpoint(s DSPBidder) endpoint.Endpoint {
 			msg = dsperror.ErrorText(errcode)
 			// err = errors.New(msg)
 		}
-		return &CommResponse{Errcode: errcode, Msg: msg, Data: res}, nil
+
+		return &CommResponse{Errcode: errcode, Msg: msg, Data: index.CPINDEX.GetCompaign(req.cid).TotalBudgetRecords}, nil
+		// return &CommResponse{Errcode: errcode, Msg: msg, Data: res}, nil
 
 	}
 }
@@ -94,7 +98,7 @@ func makeADXNotifyEndpoint(s DSPBidder) endpoint.Endpoint {
 		req := request.(ADXNotifyRequest)
 		notify := &rabbitmq.WinNotify{
 			ID:      req.ID,
-			Price:   uint32(req.Price * float64(config.Cashfix)),
+			Price:   uint32(req.Price / float64(config.BidPriceFix) * float64(config.Cashfix)),
 			CID:     req.CID,
 			UID:     req.UID,
 			Postion: req.Postion,

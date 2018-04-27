@@ -1,0 +1,30 @@
+syntax = "proto3"; // 指定proto版本
+import "google/protobuf/any.proto";  //使用Any必须要导入Any.proto
+package proto;     // 指定包名
+
+// 定义Compaign服务
+service Compaign {
+    // 定义GetCompaign方法
+    rpc GetCompaign(CompaignRequest) returns (CompaignReply) {}
+    rpc GetCompaignIDs(CompaignIDsRequest) returns (CompaignIDsReply){}
+}
+
+// CompaignRequest 请求结构
+message CompaignRequest {
+    repeated uint32 cid = 1;
+}
+
+// CompaignReply 响应结构
+message CompaignReply {
+    uint32 total = 1;
+    repeated google.protobuf.Any compaignlist = 2;
+}
+
+// CompaignIDsReply 响应结构
+message CompaignIDsRequest {
+    google.protobuf.Any object=1;
+}
+// CompaignIDsReply 响应结构
+message CompaignIDsReply {
+    repeated uint32 cids = 1;
+}

@@ -474,6 +474,7 @@ func (st *ADXbase) GetImpressionUrl(urls, imgurl string, uuid string) (imUrl str
 	q.Add(config.IMPURL_UA, st.offerInfo.UA_STR) //ua直接拼接 encode会出错
 	u.RawQuery = q.Encode()                      //urlencode
 	imUrl = u.String()
+	// pp.Println("====", imUrl)
 	return
 }
 
@@ -508,6 +509,7 @@ func (st *ADXbase) NativeResponse(cp Compaign, template, admTemplate string) str
 	//win 连接
 	nurl := st.GetNURL(config.AUCTION_PRICE, cp, uuid)
 	clickurl := cp.RedirectURL
+	clickurl = st.GetImpressionUrl(clickurl, "", uuid)
 	// impressionURL := cp.ImpressionURL + "&" + config.IMPURL_ImageURLName + "=" + carr[pos].ImgUrl
 	impressionURL := st.GetImpressionUrl(cp.ImpressionURL, carr[pos].ImgUrl, uuid)
 	adid := carr[pos].CreativeID
@@ -564,6 +566,7 @@ func (st *ADXbase) BannerResponse(cp Compaign, template, admTemplate string) str
 	//win 连接
 	nurl := st.GetNURL(config.AUCTION_PRICE, cp, uuid)
 	clickurl := cp.RedirectURL
+	clickurl = st.GetImpressionUrl(clickurl, "", uuid)
 	// impressionURL := cp.ImpressionURL + "&" + config.IMPURL_ImageURLName + "=" + carr[pos].ImgUrl
 	impressionURL := st.GetImpressionUrl(cp.ImpressionURL, carr[pos].ImgUrl, uuid)
 	adid := carr[pos].CreativeID
@@ -594,7 +597,7 @@ func (st *ADXbase) PopupResponse(cp Compaign, template, admTemplate string) stri
 	//win 连接
 	nurl := st.GetNURL(config.AUCTION_PRICE, cp, uuid)
 
-	clickurl := util.DealWithClickURL(cp.RedirectURL)
+	clickurl := cp.RedirectURL
 	clickurl = st.GetImpressionUrl(clickurl, "", uuid)
 	adid := ""
 	admstr := admt.ExecuteString(map[string]interface{}{

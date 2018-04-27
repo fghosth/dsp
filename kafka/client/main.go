@@ -7,23 +7,27 @@ import (
 )
 
 func main() {
-	topics := []string{"testTime"}
-	groupID := "derek"
-	receiver := kafka.NewIndexReceiver(topics, groupID)
+	kafka.InfluxConn = kafka.NewInfluxdb("http://data.com:8086", "derek", "zaqwedcxs", "dsp", "ns")
+	topics := []string{"bid"}
+	groupID := "derek1"
+	receiver := kafka.NewBidReceiver(topics, groupID)
 
-	// //设置offset，默认不用设置，上次读取到的offset
+	//设置offset，默认不用设置，上次读取到的offset
 	// offset := make([]kafka.OffsetGroup, 0)
-	// os := *&kafka.OffsetGroup{
-	// 	Topic:     topics[0],
-	// 	Partition: 1,
-	// 	Offset:    599,
-	// 	Metadata:  "",
+	// count := 3
+	// for i := 0; i < count; i++ {
+	// 	os := *&kafka.OffsetGroup{
+	// 		Topic:     topics[0],
+	// 		Partition: int32(i),
+	// 		Offset:    0,
+	// 		Metadata:  "",
+	// 	}
+	// 	offset = append(offset, os)
 	// }
-	// offset = append(offset, os)
 	// receiver.SetOffset(offset)
-	//接受哪些partition，默认不用设置，全部接受
-	partition := []int32{0, 1, 2}
-	receiver.SetPartition(partition)
+	// 接受哪些partition，默认不用设置，全部接受
+	// partition := []int32{0, 1, 2}
+	// receiver.SetPartition(partition)
 	// //设置接受时间范围 默认不用设置，全部接受
 	// tf := make(map[string]time.Time)
 	// ti, _ := time.Parse("2006-01-02 15:04:05 -0700", "2018-04-22 21:30:00 +0800")
@@ -39,5 +43,22 @@ func main() {
 	config.Version = sarama.V0_11_0_0
 	consu := kafka.NewConsumer(server, config)
 	consu.RegisterReceiver(receiver)
+
+	//设置offset，默认不用设置，上次读取到的offset
+	// offset2 := make([]kafka.OffsetGroup, 0)
+	// topics = []string{"win"}
+	// for i := 0; i < count; i++ {
+	// 	os := *&kafka.OffsetGroup{
+	// 		Topic:     topics[0],
+	// 		Partition: int32(i),
+	// 		Offset:    0,
+	// 		Metadata:  "",
+	// 	}
+	// 	offset2 = append(offset2, os)
+	// }
+	winreceiver := kafka.NewWinReceiver(topics, groupID)
+	// winreceiver.SetOffset(offset2)
+	consu.RegisterReceiver(winreceiver)
+
 	consu.Start()
 }

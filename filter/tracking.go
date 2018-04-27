@@ -49,7 +49,7 @@ func trackingCPFilter(v interface{}, offer model.Offer, compaign model.Compaign)
 	var cmpvalue, ofvalue interface{}
 	switch objtype {
 	case "*filter.AdultFilter":
-		cmpvalue = fmt.Sprint("是否接受adult流量:接受：1 不接受：0 compaign：", compaign.IsAdult)
+		cmpvalue = fmt.Sprint("是否接受adult流量:adult：1 mainstream：2 all:3 compaign：", compaign.IsAdult)
 		ofvalue = offer.GetOfferInfo().Domain_STR
 	case "*filter.MaxBidFilter":
 		cmpvalue = compaign.Maxbid

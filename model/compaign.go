@@ -75,7 +75,7 @@ type Compaign struct {
 	Adomain                 string            //广告主的主要域名或是顶级域名，用于广告主检测。对于动态物料，该参数的值可以是字符串数组。然而交易平台可以只允许一个广告主域名。
 	ImpressionURL           string            //展示后的通知链接地址
 	RedirectType            string            //跳转类型DESTINATION,CREATIVE,FLOW
-	IsAdult                 uint8             //是否包含成人流量 1选中，0为不选 不包含成人流量
+	IsAdult                 uint8             //流量类型adult：1 mainstream：2 all:3
 }
 
 //根据id 获取compaign
@@ -172,7 +172,7 @@ func (cmgp Compaign) GetData(data []byte) []Compaign {
 		switch v.Campaign.SpendStrategy {
 		case "ASAP":
 			cmg.SpendStrategy = 1
-		case "Smooth":
+		case "SMOOTH":
 			cmg.SpendStrategy = 2
 		}
 		//==================设置条件
@@ -601,7 +601,7 @@ func (cmgp Compaign) GetData(data []byte) []Compaign {
 		//====================是否包含成人流量
 		cmg.IsAdult = v.Campaign.ISAdult
 		//==================设置条件
-		if cmg.IsAdult == 0 {
+		if cmg.IsAdult != 3 {
 			cmg.FilterSet = cmg.FilterSet + config.FilterCode["AdultFilter"]
 		}
 		//================================

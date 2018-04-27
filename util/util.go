@@ -45,6 +45,18 @@ func init() {
 	KitLogger = kitlog.With(KitLogger, "ts", kitlog.DefaultTimestampUTC)
 }
 
+//列出目录下所有文件
+func ListFiles(path string) func(string) []string {
+	return func(line string) []string {
+		names := make([]string, 0)
+		files, _ := ioutil.ReadDir(path)
+		for _, f := range files {
+			names = append(names, f.Name())
+		}
+		return names
+	}
+}
+
 //处理clickurl
 //http://iytg3a.nbtrk6.com/22b90d96-8adf-4978-9229-4cc643a0e12f  to  http://iytg3a.nbtrk6.com/impressionClick/22b90d96-8adf-4978-9229-4cc643a0e12f
 func DealWithClickURL(url string) string {

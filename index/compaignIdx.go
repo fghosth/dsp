@@ -14,6 +14,7 @@ import (
 	"github.com/buger/jsonparser"
 	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/log/level"
+	"github.com/k0kubun/pp"
 	"jvole.com/dsp/config"
 	"jvole.com/dsp/model"
 	"jvole.com/dsp/redis"
@@ -112,7 +113,7 @@ func (cmpIdx *CompaignIdx) SetupIndex() {
 	totalnum, _, _, _ := jsonparser.Get(res, "data", "[0]", "campaign", "total")
 
 	total, _ := strconv.Atoi(string(totalnum)) //总记录数
-
+	pp.Println(total)
 	var page int //总页数
 	page = total / config.PerNum
 	if total%config.PerNum > 0 {
@@ -257,6 +258,7 @@ func (cmpIdx *CompaignIdx) IndexCheck() {
 		for range time.Tick(time.Duration(config.Interval) * time.Second) {
 			cmpIdx.compaign.Range(func(key interface{}, value interface{}) bool {
 				if v, ok := value.(model.Compaign); ok {
+					cmpIdx.lock.Lock()
 					//遍历所有compaign
 					rest, _ := util.CovnNOWUTC2Location(v.TimeZone.ZoneName)
 					sinceTime, tillTime, _ := util.BgeinAndEndDAYOfZone(v.TimeZone.ZoneName)
@@ -291,7 +293,7 @@ func (cmpIdx *CompaignIdx) IndexCheck() {
 					}
 
 					cmpIdx.compaign.Store(key, v)
-
+					cmpIdx.lock.Unlock()
 				}
 				return true
 			})
@@ -311,7 +313,7 @@ func (cmpIdx *CompaignIdx) BidSuccess(cid uint32, price uint32, position string,
 	} else {
 		return errors.New("no compaign")
 	}
-	// fmt.Println(price, "===", cm.DailyBudgetRecores.Cost)
+	fmt.Println(price, "===", cm.DailyBudgetRecores.Cost)
 	//日预算记录
 	if !cm.UnlimitBudget { //有预算限制
 		cm.DailyBudgetRecores.Cost = cm.DailyBudgetRecores.Cost + price
@@ -340,18 +342,22 @@ func (cmpIdx *CompaignIdx) BidSuccess(cid uint32, price uint32, position string,
 	if cm.FreqCapEnabled && (device != "" || user != "") { //开启,并device和user不同时为空
 		switch cm.FreqCapType {
 		case 1: //设备
-			_, ok := cm.FreqRecords.Device[device]
-			if ok { //存在
-				cm.FreqRecords.Device[device] = cm.FreqRecords.Device[device] + 1
-			} else { //不存在
-				cm.FreqRecords.Device[device] = 1
+			if device != "" {
+				_, ok := cm.FreqRecords.Device[device]
+				if ok { //存在
+					cm.FreqRecords.Device[device] = cm.FreqRecords.Device[device] + 1
+				} else { //不存在
+					cm.FreqRecords.Device[device] = 1
+				}
 			}
 		case 2: //用户
-			_, ok := cm.FreqRecords.User[user]
-			if ok { //存在
-				cm.FreqRecords.User[user] = cm.FreqRecords.User[user] + 1
-			} else { //不存在
-				cm.FreqRecords.User[user] = 1
+			if user != "" {
+				_, ok := cm.FreqRecords.User[user]
+				if ok { //存在
+					cm.FreqRecords.User[user] = cm.FreqRecords.User[user] + 1
+				} else { //不存在
+					cm.FreqRecords.User[user] = 1
+				}
 			}
 		}
 	}
