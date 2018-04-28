@@ -72,7 +72,7 @@ func aTestSyncSend(t *testing.T) {
 	producer.Close() //关闭发送器
 }
 
-func aTestAsyncSend(t *testing.T) {
+func TestAsyncSend(t *testing.T) {
 	//设置配置
 	config := sarama.NewConfig()
 
@@ -93,8 +93,9 @@ func aTestAsyncSend(t *testing.T) {
 		message := "===5435345===" + strconv.Itoa(i)
 		key := "dsp"
 		topic := "testTime"
-		// t := time.Now()
-		t, _ := time.Parse("2006-01-02 15:04:05 -0700", "2018-04-22 21:33:00 +0400")
+		t := time.Now()
+		// t, _ := time.Parse("2006-01-02 15:04:05 -0700", "2018-04-22 21:33:00 +0400")
+		// var t time.Time
 		producer.SendMsgAsync(message, key, topic, t)
 	}
 

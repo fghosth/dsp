@@ -8,7 +8,7 @@ import (
 
 func main() {
 	kafka.InfluxConn = kafka.NewInfluxdb("http://localhost:8086", "derek", "123456", "dsp", "ns")
-	topics := []string{"bid"}
+	topics := []string{"testTime"}
 	groupID := "derek"
 	receiver := kafka.NewBidReceiver(topics, groupID)
 

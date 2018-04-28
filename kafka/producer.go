@@ -80,6 +80,9 @@ func (pd *producer) SendMsgSync(message, key, topic string, t time.Time) error {
 		Value:     sarama.ByteEncoder(message),
 		Timestamp: t,
 	}
+	if t.IsZero() {
+		msg.Timestamp = time.Now()
+	}
 	_, _, err := pd.prodSync.SendMessage(msg)
 	// part, offset, err := pd.prodSync.SendMessage(msg)
 	if err != nil {
@@ -99,6 +102,9 @@ func (pd *producer) SendMsgAsync(message, key, topic string, t time.Time) {
 		Key:       sarama.StringEncoder(key),
 		Value:     sarama.ByteEncoder(message),
 		Timestamp: t,
+	}
+	if t.IsZero() {
+		msg.Timestamp = time.Now()
 	}
 	//使用通道发送
 	pd.prodAsync.Input() <- msg

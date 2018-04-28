@@ -129,3 +129,71 @@ get number
 get allCid 
 get allCid 
 get number 
+get allCid
+set compaign 12627
+get dailyBudgetRecore 
+get allCid 
+set compaign 12660
+show
+get dailyBudgetRecore 
+get allCid 
+set compaign 12627
+get dailyBudgetRecore 
+get allCid 
+set compaign 12627
+get dailyBudgetRecore 
+get allCid 
+set compaign 12627
+watch dailyBudgetRecore 
+set compaign 12627
+watch dailyBudgetRecore
+get allCid 
+set compaign 12627
+watch dailyBudgetRecore
+get dailyBudgetRecore 
+watch dailyBudgetRecore 
+set compaign 12627
+get dailyBudgetRecore
+get compaign 12627
+get dailyBudgetRecore
+get compaign 12627
+set compaign 12627
+get dailyBudgetRecore
+get totalBudgetRecord 
+get dailyBudgetRecore
+get totalBudgetRecord 
+get dailyBudgetRecore
+watch totalBudgetRecord 
+set compaign 12627
+watch dailyBudgetRecore 
+get totalBudgetRecord 
+get dailyBudgetRecore 
+get totalBudgetRecord 
+set compaign 12627
+get totalBudgetRecord
+set compaign 12627
+get totalBudgetRecord
+get dailyBudgetRecore 
+set compaign 12627
+get dailyBudgetRecore
+get totalBudgetRecord
+set compaign 12627
+get totalBudgetRecord
+help
+exit
+get allCid 
+get allCid 
+get dailyBudgetRecore 
+get allCid 
+set compaign 12660
+get dailyBudgetRecore 
+get totalBudgetRecord 
+exit
+set compaign 12660
+get dailyBudgetRecore 
+set compaign 12660
+get dailyBudgetRecore 
+get dailyPPBRecord 
+get allCid 
+set compaign 12660
+get dailyBudgetRecore 

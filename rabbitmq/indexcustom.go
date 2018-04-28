@@ -96,12 +96,26 @@ func (ic indexReceiver) OnReceive(body []byte) (success bool) {
 		if cm.ID == 0 { //如果不是此adx的数据
 			return true
 		}
-		if index.CPINDEX.GetCompaign(msg.CID).ID != 0 { //如果索引已存在则删除
+		cmp := index.CPINDEX.GetCompaign(msg.CID)
+
+		if cmp.ID != 0 { //如果索引已存在则删除,保存历史纪录
+			//保存历史纪录
+			dailyBudgetRecores := cmp.DailyBudgetRecores
+			dailyPPBRecords := cmp.DailyPPBRecords
+			totalBudgetRecords := cmp.TotalBudgetRecords
+			freqRecords := cmp.FreqRecords
+			cm.DailyBudgetRecores = dailyBudgetRecores
+			cm.DailyPPBRecords = dailyPPBRecords
+			cm.TotalBudgetRecords = totalBudgetRecords
+			cm.FreqRecords = freqRecords
+			//删除老记录
 			index.CPINDEX.Remove(msg.CID)
 		}
 		index.CPINDEX.Add(cm)
+
 		index.CPINDEX.SetVersion(index.CPINDEX.GetVersion() + 1)
-		fmt.Println("更新index====", index.CPINDEX.GetCompaign(msg.CID).EndDate)
+
+		// fmt.Println("更新index====", index.CPINDEX.GetCompaign(msg.CID).EndDate)
 
 	case config.MQNDEL:
 		index.CPINDEX.Remove(msg.CID)

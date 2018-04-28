@@ -172,7 +172,7 @@ login:
 							_, cmp = query([]uint32{CID})
 						}
 						if len(cmp) > 0 {
-							fmt.Printf("cost:%f, SinceTime:%s, TillTime:%s\n", (float64(cmp[0].DailyBudgetRecores.Cost) / fixcash), cmp[0].DailyBudgetRecores.SinceTime, cmp[0].DailyBudgetRecores.TillTime)
+							fmt.Printf("total:%f, cost:%f, SinceTime:%s, TillTime:%s\n", float64(cmp[0].DailyBudget)/fixcash, (float64(cmp[0].DailyBudgetRecores.Cost) / fixcash), cmp[0].DailyBudgetRecores.SinceTime, cmp[0].DailyBudgetRecores.TillTime)
 						}
 						if stop {
 							return
@@ -204,7 +204,7 @@ login:
 							_, cmp = query([]uint32{CID})
 						}
 						if len(cmp) > 0 {
-							fmt.Printf("cost:%f\n", (float64(cmp[0].TotalBudgetRecords.Cost) / fixcash))
+							fmt.Printf("total:%f, cost:%f\n", float64(cmp[0].TotalBudget)/fixcash, (float64(cmp[0].TotalBudgetRecords.Cost) / fixcash))
 						}
 						if stop {
 							return
@@ -242,7 +242,7 @@ login:
 				fmt.Println(getCompaignIDs())
 			case "dailyBudgetRecore":
 				if len(cmp) > 0 {
-					fmt.Printf("cost:%f, SinceTime:%s, TillTime:%s", (float64(cmp[0].DailyBudgetRecores.Cost) / fixcash), cmp[0].DailyBudgetRecores.SinceTime, cmp[0].DailyBudgetRecores.TillTime)
+					fmt.Printf("total:%f, cost:%f, SinceTime:%s, TillTime:%s", float64(cmp[0].DailyBudget)/fixcash, (float64(cmp[0].DailyBudgetRecores.Cost) / fixcash), cmp[0].DailyBudgetRecores.SinceTime, cmp[0].DailyBudgetRecores.TillTime)
 				}
 			case "dailyPPBRecord":
 				if len(cmp) > 0 {
@@ -250,7 +250,7 @@ login:
 				}
 			case "totalBudgetRecord":
 				if len(cmp) > 0 {
-					fmt.Printf("cost:%f", (float64(cmp[0].TotalBudgetRecords.Cost) / fixcash))
+					fmt.Printf("total:%f, cost:%f\n", float64(cmp[0].TotalBudget)/fixcash, (float64(cmp[0].TotalBudgetRecords.Cost) / fixcash))
 				}
 			case "freqRecord":
 				if len(cmp) > 0 {

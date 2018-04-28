@@ -63,6 +63,8 @@ var (
  @return error
 */
 func (idb *influxdb) Insert(tags map[string]string, fields map[string]interface{}, table string, times time.Time) error {
+	idb.mtx.Lock()
+	defer idb.mtx.Unlock()
 	c, err := client.NewHTTPClient(client.HTTPConfig{
 		Addr:     idb.addr,
 		Username: idb.user,
@@ -86,7 +88,8 @@ func (idb *influxdb) Insert(tags map[string]string, fields map[string]interface{
 		return err
 	}
 
-	pt, err := client.NewPoint(table, tags, fields, times)
+	pt, err := client.NewPoint(table, tags, fields, time.Now())
+	// pt, err := client.NewPoint(table, tags, fields, times)
 	if err != nil {
 		util.Log.WithFields(logrus.Fields{
 			"name": "错误",

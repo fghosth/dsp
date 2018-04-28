@@ -109,9 +109,9 @@ FilterTimeout: 80
 #adx请求日志路径
 ADXReqTrackPath: "adx.txt"
 #adx请求日志路径是否开启
-ADXReqTrackISON: true
+ADXReqTrackISON: false
 #竞价成功日志是否打开
-ADXReqTrackWin: true
+ADXReqTrackWin: false
 #竞价成功日志文件
 ADXReqTrackWinPath: "win.log"
 #dsp同步索引服务列表

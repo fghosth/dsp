@@ -106,7 +106,7 @@ func (s exadsDSPBidder) Bidder(body []byte, host string) string {
 	} else {
 		stype = "mainstream"
 	}
-	kafka.KafKaProducer.SendMsgAsync(result, config.ADX+","+stype, config.KafKa_Topic_Bid, time.Now().UTC())
+	kafka.KafKaProducer.SendMsgAsync(result, config.ADX+","+stype, config.KafKa_Topic_Bid, time.Now())
 	return result
 }
 
@@ -122,7 +122,7 @@ func (s exadsDSPBidder) ADXNotify(notify rabbitmq.WinNotify) error {
 	//通知dsp
 	rabbitmq.RabbitMQConn.Publish(config.DSPEXName, config.DSPRouteKey, body)
 	//发送win记录到kafka
-	kafka.KafKaProducer.SendMsgAsync(string(body), config.ADX, config.KafKa_Topic_Win, time.Now().UTC())
+	kafka.KafKaProducer.SendMsgAsync(string(body), config.ADX, config.KafKa_Topic_Win, time.Now())
 	return nil
 }
 
