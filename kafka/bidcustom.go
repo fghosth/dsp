@@ -104,7 +104,6 @@ func (ic *bidReceiver) OnReceive(msg *sarama.ConsumerMessage) (success bool) {
 			fmt.Println(err) // 这里的err其实就是panic传入的内容，55
 		}
 	}()
-	var a float64 = 23.12434
 
 	pp.Println(msg.Timestamp.Nanosecond(), time.Now().Nanosecond(), msg.Timestamp.Add(time.Nanosecond*460124).Nanosecond())
 	// fmt.Println("key:", string(msg.Key), "msg offset: ", msg.Offset, " partition: ", msg.Partition, " timestrap: ", msg.Timestamp.Format("2006-Jan-02 15:04"), " value: ", string(msg.Value))

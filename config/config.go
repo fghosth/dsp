@@ -85,6 +85,7 @@ var (
 	IMPURL_DeviceID     = "deviceid"
 	IMPURL_ADX          = "adx"
 	IMPURL_ClickID      = "clickID"
+	IMPURL_Creative     = "Creative"
 	//===================以下配置文件不设置
 	IsInit             = false            //是否是初始化启动 是则先删除所有消息
 	CPMBidFix   uint32 = 1                //千次展示cpm要除1

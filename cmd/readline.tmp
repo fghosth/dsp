@@ -197,3 +197,28 @@ get dailyPPBRecord
 get allCid 
 set compaign 12660
 get dailyBudgetRecore 
+get allCid 
+get allCid 
+set 12668
+get dailyBudgetRecore 
+get totalBudgetRecord 
+set compaign 12668
+get dailyBudgetRecore 
+show
+get dailyBudgetRecore 
+get allCid 
+set compaign 12670
+get dailyBudgetRecore 
+get compaign 12670
+get totalBudgetRecord 
+exit
+get allCid 
+set compaign 12670
+get dailyBudgetRecore 
+set compaign 12671
+get dailyBudgetRecore 
+get totalBudgetRecord 
+get dailyBudgetRecore 
+get totalBudgetRecord 
+exit
+get allCid 

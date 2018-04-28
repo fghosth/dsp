@@ -512,7 +512,9 @@ func (st *ADXbase) NativeResponse(cp Compaign, template, admTemplate string) str
 	clickurl = st.GetImpressionUrl(clickurl, "", uuid)
 	// impressionURL := cp.ImpressionURL + "&" + config.IMPURL_ImageURLName + "=" + carr[pos].ImgUrl
 	impressionURL := st.GetImpressionUrl(cp.ImpressionURL, carr[pos].ImgUrl, uuid)
+
 	adid := carr[pos].CreativeID
+	impressionURL = impressionURL + "&" + config.IMPURL_Creative + adid
 	title := carr[pos].Headline
 	description := carr[pos].Description
 	admstr := admt.ExecuteString(map[string]interface{}{
@@ -570,6 +572,7 @@ func (st *ADXbase) BannerResponse(cp Compaign, template, admTemplate string) str
 	// impressionURL := cp.ImpressionURL + "&" + config.IMPURL_ImageURLName + "=" + carr[pos].ImgUrl
 	impressionURL := st.GetImpressionUrl(cp.ImpressionURL, carr[pos].ImgUrl, uuid)
 	adid := carr[pos].CreativeID
+	impressionURL = impressionURL + "&" + config.IMPURL_Creative + adid
 	admstr := admt.ExecuteString(map[string]interface{}{
 		"CLICKURL": clickurl,
 		"IMGURL":   impressionURL,
