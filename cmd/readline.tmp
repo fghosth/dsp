@@ -222,3 +222,33 @@ get dailyBudgetRecore
 get totalBudgetRecord 
 exit
 get allCid 
+set compaign 12886
+get totalBudgetRecord
+get allCid 
+set compaign 11156
+get totalBudgetRecord 
+get allCid 
+set compaign 12889
+get totalBudgetRecord 
+get status 
+get compaign 
+get allCid 
+set compaign 12889
+get status 
+get dailyBudgetRecore 
+get totalBudgetRecord 
+get dailyBudgetRecore 
+get totalBudgetRecord 
+get dailyBudgetRecore 
+get totalBudgetRecord 
+get dailyBudgetRecore 
+get status 
+set compaign 12889
+get status
+get dailyBudgetRecore
+exit
+get allCid 
+set compaign 12622
+get dailyBudgetRecore 
+get totalBudgetRecord 
+get dailyBudgetRecore 

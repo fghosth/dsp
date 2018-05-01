@@ -23,7 +23,7 @@ func (st *Adsterra) GetBidderResponse(cp Compaign) (response string) {
 	case 2:
 		// response = st.BannerResponse(cp, config.BASE_BID_TEMPLATE, config.EXADS_BANNER_XML_TEMPLATE)
 	case 3:
-		response = st.PopupResponse(cp, config.ADSTERRA_POPUP_JSON_TEMPLATE, "")
+		response = st.PopupResponse(cp, config.BASE_BID_TEMPLATE, config.EXADS_POPUP_XML_TEMPLATE)
 	}
 	return
 }

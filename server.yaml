@@ -18,8 +18,8 @@ Maxconn: 100000
 #cdnUrl
 CDNURL: ""
 #mq地址
-RabbitMQURL: "amqp://derek:zaqwedcxs@mqm.nb.com:5672/"
-# RabbitMQURL: "amqp://derek:zaqwedcxs@mq.newbidder.com:5672/"
+# RabbitMQURL: "amqp://derek:zaqwedcxs@mqm.nb.com:5672/"
+RabbitMQURL: "amqp://derek:zaqwedcxs@mq.newbidder.com:5672/"
 #RabbitMQURL: "amqp://derek:zaqwedcxs@mq1.com:5672/"
 #访问服务的用户名密码
 RedisURL: "redis.nb.com:6380"
@@ -130,3 +130,4 @@ TrackingFile: "dsptracking.log"
 KafkaURL: "kafka.newbidder.com:9092"
 GRPCPEM: "./grpc/keys/server.pem"
 GRPCKEY: "./grpc/keys/server.key"
+GrpcAddress: ":5005"

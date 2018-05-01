@@ -20,6 +20,7 @@ var (
 	RedisCPVersionKey           = "DSP:CPIndexversion"                              //redis compaignversion key
 	PerNum                      = 20                                                //初始化索引时每次读取几条数据
 	Interval                    = 2                                                 //检查索引时间间隔 s
+	GrpcAddress                 = ":5005"                                           // Address gRPC服务地址
 	Cashfix              uint32 = 1000000                                           //货币都要乘1000000
 	MapLength                   = 10000                                             //设备，用户，位置等map预留大小
 	Loglevel                    = "all"                                             //日志等级 all debug info  error

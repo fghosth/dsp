@@ -16,11 +16,6 @@ import (
 	"jvole.com/dsp/util"
 )
 
-const (
-	// Address gRPC服务地址
-	Address = ":5005"
-)
-
 // 定义compaignService并实现约定的接口
 type compaignService struct{}
 
@@ -80,7 +75,7 @@ func auth(ctx context.Context) error {
 //Run 运行
 func Run() {
 
-	listen, err := net.Listen("tcp", Address)
+	listen, err := net.Listen("tcp", config.GrpcAddress)
 	if err != nil {
 		grpclog.Fatalf("failed to listen: %v", err)
 	}

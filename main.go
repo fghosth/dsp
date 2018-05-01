@@ -79,6 +79,7 @@ type configmap struct {
 	KafkaURL             string   //kafka连接
 	GRPCPEM              string
 	GRPCKEY              string
+	GrpcAddress          string
 }
 
 var (
@@ -270,6 +271,7 @@ func loadConfig(file string) {
 		config.KafkaURL = cfg.KafkaURL
 		config.GRPCKEY = cfg.GRPCKEY
 		config.GRPCPEM = cfg.GRPCPEM
+		config.GrpcAddress = cfg.GrpcAddress
 	} else {
 		log.Println("配置文件错误:", err)
 		os.Exit(0)
