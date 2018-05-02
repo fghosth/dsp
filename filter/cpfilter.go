@@ -3,6 +3,7 @@ package filter
 import (
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/RoaringBitmap/roaring"
@@ -30,7 +31,7 @@ func CPFiltercomp(compaign model.Compaign, offer model.Offer) bool {
 	dbf := &DailyBudgetFilter{config.FilterCode["DailyBudgetFilter"]}
 	ssf := &SpendStrategyFilter{config.FilterCode["SpendStrategyFilter"]}
 	tbf := &TotalBudgetFilter{config.FilterCode["TotalBudgetFilter"]}
-	fcf := &FreqCapFilter{config.FilterCode["FreqCapFilter"]}
+	fcf := &FreqCapFilter{new(sync.RWMutex), config.FilterCode["FreqCapFilter"]}
 	btf := &BidderTimeFilter{config.FilterCode["BidderTimeFilter"]}
 	dpf := &DayPartingFilter{config.FilterCode["DayPartingFilter"]}
 	cf := &CountriesFilter{config.FilterCode["CountriesFilter"]}
@@ -42,7 +43,7 @@ func CPFiltercomp(compaign model.Compaign, offer model.Offer) bool {
 	caarf := &CarriersFilter{config.FilterCode["CarriersFilter"]}
 	osf := &OSFilter{config.FilterCode["OSFilter"]}
 	af := &AudiencesFilter{config.FilterCode["AudiencesFilter"]}
-	dppbf := &DailyPPBFilter{config.FilterCode["DailyPPBFilter"]}
+	dppbf := &DailyPPBFilter{new(sync.RWMutex), config.FilterCode["DailyPPBFilter"]}
 	ipf := &IPFilter{config.FilterCode["IPFilter"]}
 	ctf := &ConnectTypeFilter{config.FilterCode["ConnectTypeFilter"]}
 	dtf := &DeviceTypeFilter{config.FilterCode["DeviceTypeFilter"]}
@@ -172,6 +173,7 @@ func (tbf *TotalBudgetFilter) Filter(compaign model.Compaign, offer model.Offer)
 
 //投放频率过滤
 type FreqCapFilter struct { //编号16
+	lock *sync.RWMutex
 	Code uint32
 }
 
@@ -180,6 +182,8 @@ func (fcf *FreqCapFilter) GetCode() uint32 {
 }
 func (fcf *FreqCapFilter) Filter(compaign model.Compaign, offer model.Offer) bool {
 	offerinfo := offer.GetOfferInfo()
+	fcf.lock.RLock()
+	defer fcf.lock.RUnlock()
 	switch compaign.FreqCapType {
 	case 1:
 		if compaign.FreqRecords.Device[offerinfo.DeviceID_STR] >= compaign.FreqCountLimit {
@@ -407,6 +411,7 @@ func (af *AudiencesFilter) Filter(compaign model.Compaign, offer model.Offer) bo
 
 //每天每个广告位的预算
 type DailyPPBFilter struct { //编号2^14
+	lock *sync.RWMutex
 	Code uint32
 }
 
@@ -415,6 +420,8 @@ func (dppbf *DailyPPBFilter) GetCode() uint32 {
 }
 func (dppbf *DailyPPBFilter) Filter(compaign model.Compaign, offer model.Offer) bool {
 	offerinfo := offer.GetOfferInfo()
+	dppbf.lock.RLock()
+	defer dppbf.lock.RUnlock()
 	_, ok := compaign.DailyPPBRecords.Offer[offerinfo.Postion]
 	if !ok { //如果广告位没被记录过
 		return true
