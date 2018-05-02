@@ -10,7 +10,7 @@ func main() {
 	kafka.InfluxConn = kafka.NewInfluxdb("http://localhost:8086", "derek", "123456", "dsp", "ns")
 	topics := []string{"testTime"}
 	groupID := "derek"
-	receiver := kafka.NewBidReceiver(topics, groupID)
+	receiver := kafka.NewTestReceiver(topics, groupID)
 
 	// //设置offset，默认不用设置，上次读取到的offset
 	// offset := make([]kafka.OffsetGroup, 0)

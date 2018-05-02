@@ -266,7 +266,7 @@ func (cmpIdx *CompaignIdx) IndexCheck() {
 					//=================日预算
 					if !v.UnlimitBudget { //有预算限制
 						//日预算记录
-						if rest.After(v.EndDate) { //如果第二天了
+						if rest.After(v.DailyBudgetRecores.TillTime) { //如果第二天了
 							v.DailyBudgetRecores.Cost = 0
 							v.DailyBudgetRecores.SinceTime = sinceTime
 							v.DailyBudgetRecores.TillTime = tillTime

@@ -130,7 +130,7 @@ func (ic *winReceiver) OnReceive(msg *sarama.ConsumerMessage) (success bool) {
 	fields["price"] = notify.Price
 	fields["data"] = string(msg.Value)
 	table := "win"
-	times := msg.Timestamp
+	times := msg.Timestamp.Add(time.Nanosecond * time.Duration(time.Now().Nanosecond()%1000000)) //补足纳秒时间
 	err = InfluxConn.Insert(tags, fields, table, times)
 	if err != nil {
 		success = false

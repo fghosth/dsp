@@ -252,3 +252,41 @@ set compaign 12622
 get dailyBudgetRecore 
 get totalBudgetRecord 
 get dailyBudgetRecore 
+get allCid 
+set compaign 12650
+get totalBudgetRecord 
+get dailyBudgetRecore 
+exit
+get allCid 
+set compaign 12889
+get totalBudgetRecord 
+get allCid 
+set compaign 12650
+get totalBudgetRecord 
+get dailyBudgetRecore 
+exit
+get allCid 
+set compaign 12889
+get dailyBudgetRecore 
+get totalBudgetRecord 
+get dailyBudgetRecore 
+get totalBudgetRecord 
+exit
+get allCid 
+get allCid 
+set compaign 12889
+get totalBudgetRecord 
+get dailyBudgetRecore 
+get totalBudgetRecord 
+get allCid 
+set compaign 12889
+get totalBudgetRecord
+get dailyBudgetRecore
+get totalBudgetRecord
+get dailyBudgetRecore
+get totalBudgetRecord
+get dailyBudgetRecore
+get allCid 
+set compaign 12889
+get dailyBudgetRecore 
+get totalBudgetRecord 

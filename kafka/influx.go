@@ -88,7 +88,7 @@ func (idb *influxdb) Insert(tags map[string]string, fields map[string]interface{
 		return err
 	}
 
-	pt, err := client.NewPoint(table, tags, fields, time.Now())
+	pt, err := client.NewPoint(table, tags, fields, times)
 	// pt, err := client.NewPoint(table, tags, fields, times)
 	if err != nil {
 		util.Log.WithFields(logrus.Fields{

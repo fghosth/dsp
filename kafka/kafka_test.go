@@ -94,7 +94,7 @@ func TestAsyncSend(t *testing.T) {
 		key := "dsp"
 		topic := "testTime"
 		t := time.Now()
-		// t, _ := time.Parse("2006-01-02 15:04:05 -0700", "2018-04-22 21:33:00 +0400")
+		// t, _ := time.Parse("2006-01-02 15:04:05 -0700", "2019-04-22 21:33:00 +0400")
 		// var t time.Time
 		producer.SendMsgAsync(message, key, topic, t)
 	}
